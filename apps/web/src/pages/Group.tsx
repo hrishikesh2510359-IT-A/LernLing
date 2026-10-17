@@ -171,6 +171,18 @@ function GroupView({ groupId }: { groupId: string }) {
     if (error) setMsg(error.message)
     else void reload()
   }
+  async function deleteGroup() {
+    const ok = window.confirm(
+      `Delete "${data!.name}" for everyone?\n\nAll ${data!.members.length} member(s) are removed from the group and the invite link stops working. ` +
+        `Nobody's own study history or streak is deleted. This cannot be undone.`,
+    )
+    if (!ok) return
+    // .select() returns the deleted rows, so we can tell if the database refused (0 rows).
+    const { data: gone, error } = await supabase.from('groups').delete().eq('id', groupId).select('id')
+    if (error) return setMsg(error.message)
+    if (!gone || gone.length === 0) return setMsg('Could not delete the group. Only the owner can, and the latest database update must be installed.')
+    navigate('/group')
+  }
   async function leave() {
     if (!window.confirm('Leave this group?')) return
     const { error } = await supabase.from('group_members').delete().eq('group_id', groupId).eq('user_id', uid)
@@ -260,6 +272,7 @@ function GroupView({ groupId }: { groupId: string }) {
             <p><code>{data.inviteCode}</code></p>
             <p className="muted">Anyone with this link can join. Share it only with people you trust.</p>
             {!isOwner && <button className="btn ghost" onClick={() => void leave()}>Leave group</button>}
+            {isOwner && <button className="btn danger" onClick={() => void deleteGroup()}>Delete group</button>}
           </div>
         </div>
       </div>
