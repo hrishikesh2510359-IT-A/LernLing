@@ -385,3 +385,12 @@ td { padding: 10px 8px; border-top: 1px solid var(--border); }
   .mascot *, .mascot { animation: none !important; }
   .m-z, .m-confetti { opacity: 0 !important; }
 }
+
+/* signed-in user chip in the top bar */
+.who { display: inline-flex; align-items: center; gap: 8px; color: var(--text2); font-weight: 600; font-size: 14px; }
+.avatar {
+  width: 30px; height: 30px; border-radius: 50%; object-fit: cover; flex: none;
+  background: var(--primary); color: #fff; font-weight: 800; font-size: 14px;
+  display: inline-grid; place-items: center;
+}
+@media (max-width: 400px) { .who-name { display: none; } }

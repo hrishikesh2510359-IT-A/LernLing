@@ -7,6 +7,7 @@ import { Ring } from '../components/charts'
 import { useUserId } from '../lib/auth'
 import { addDays, lastNDays, localDay, shortDate } from '../lib/dates'
 import { useAsync, type DayStat } from '../lib/hooks'
+import { firstName, timeGreeting } from '../lib/greeting'
 import { must } from '../lib/query'
 import { supabase } from '../lib/supabase'
 
@@ -27,7 +28,7 @@ export default function Home() {
 
   const { data, loading, error, reload } = useAsync(async () => {
     const since = localDay(addDays(new Date(), -730))
-    const [sums, streak, groups, sessions, nudges] = await Promise.all([
+    const [sums, streak, groups, sessions, nudges, profile] = await Promise.all([
       supabase.from('daily_summary').select('day, active_minutes, lessons_done, studied').eq('user_id', uid).gte('day', since),
       supabase.from('streaks').select('current, longest').eq('user_id', uid).maybeSingle(),
       supabase.from('group_members').select('groups(daily_threshold_min)').eq('user_id', uid),
@@ -38,6 +39,7 @@ export default function Home() {
         .eq('to_user', uid)
         .gte('sent_at', new Date(Date.now() - 24 * 3600 * 1000).toISOString())
         .order('sent_at', { ascending: false }),
+      supabase.from('profiles').select('display_name').eq('id', uid).maybeSingle(),
     ])
     const days = new Map<string, DayStat>()
     for (const r of must(sums)) {
@@ -48,6 +50,7 @@ export default function Home() {
       .filter((n): n is number => typeof n === 'number')
     return {
       days,
+      name: (profile.data?.display_name as string | undefined) ?? '',
       current: streak.data?.current ?? 0,
       longest: streak.data?.longest ?? 0,
       threshold: thresholds.length ? Math.min(...thresholds) : 10,
@@ -77,7 +80,16 @@ export default function Home() {
 
   return (
     <div className="grid">
-      <h1>{studiedToday ? 'Day counted. Nice work!' : 'Ready to study today?'}</h1>
+      <div>
+        <h1>{timeGreeting()}, {firstName(data.name)}! 👋</h1>
+        <p className="muted" style={{ margin: '4px 0 0', fontSize: 15 }}>
+          {studiedToday
+            ? 'Day counted. Nice work!'
+            : data.current > 0
+              ? `Study a little today to keep your ${data.current}-day streak alive.`
+              : 'Ready to start a new streak today?'}
+        </p>
+      </div>
 
       {!studiedToday && data.nudges.length > 0 && (
         <div className="notice" style={{ border: '1px solid var(--l2)' }}>
