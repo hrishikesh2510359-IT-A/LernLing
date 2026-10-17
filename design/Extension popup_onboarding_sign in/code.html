@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lernling Extension - Track This Site</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              primary: '#e25d33',
+              primaryHover: '#cc4d25',
+              softOrange: '#ffefe9',
+              deepBrown: '#2c211d',
+              warmMuted: '#7c6d66',
+              surface: '#fff8f6',
+              cardBg: '#ffffff',
+              border: '#f3e6e1',
+              green: '#2d8653',
+              greenLight: '#eaf6ef',
+              creamHover: '#fff1ec'
+            }
+          },
+          boxShadow: {
+            card: '0 4px 20px -2px rgba(226, 93, 51, 0.08), 0 2px 6px -1px rgba(44, 33, 29, 0.04)',
+            button: '0 4px 14px rgba(226, 93, 51, 0.28)'
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      background-color: #f7ebe6;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Chrome Extension Popup Container Frame */
+    .popup-frame {
+      width: 360px;
+      height: 520px;
+      max-width: 360px;
+      max-height: 520px;
+      background: #fff8f6;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 12px 36px rgba(44, 33, 29, 0.16), 0 0 0 1px rgba(226, 93, 51, 0.1);
+      position: relative;
+    }
+    /* Custom checkbox styling */
+    .custom-checkbox {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 19px;
+      height: 19px;
+      border: 2px solid #e7d7d0;
+      border-radius: 6px;
+      outline: none;
+      transition: all 0.15s ease-in-out;
+      cursor: pointer;
+      display: grid;
+      place-content: center;
+      background-color: #ffffff;
+      flex-shrink: 0;
+    }
+    .custom-checkbox:checked {
+      background-color: #e25d33;
+      border-color: #e25d33;
+    }
+    .custom-checkbox:checked::before {
+      content: "";
+      width: 9px;
+      height: 5px;
+      border-left: 2px solid #ffffff;
+      border-bottom: 2px solid #ffffff;
+      transform: rotate(-45deg) translate(1px, -1px);
+    }
+    /* Peeking mascot container */
+    .mascot-peeking {
+      position: absolute;
+      top: -10px;
+      right: 14px;
+      width: 76px;
+      height: 76px;
+      z-index: 10;
+      pointer-events: none;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .popup-card:hover .mascot-peeking {
+      transform: translateY(-4px) rotate(3deg);
+    }
+  </style>
+<meta content="web_standard" name="shell-type"/></head>
+<body>
+<!-- Extension Popup Window (Fixed 360x520) -->
+<div class="popup-frame">
+<!-- Header Bar -->
+<header class="px-4 py-2.5 bg-brand-surface border-b border-brand-border flex items-center justify-between shrink-0">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full overflow-hidden bg-brand-softOrange border border-brand-border flex items-center justify-center shadow-xs">
+<img alt="Lernling Logo" class="w-5 h-5 object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WASKrUyVOjy68XzZKBZWipsq80NTT2lO0keYo3cCEMS515LeyIeAwpj3qwMcbR1wkgiBbco5RIkAmjfy7yTMMfR_UENnBnceFXjDeJS3NTqXSIJB21pQmldtEMGfblUAr7Uj_fSvFxvRcrEiDJDIeEkGGECIIMwF4P9LAGxJAghs4C5Ka7WwAFoVIVl72Ak9LYcwTPGhLVs_4YUuOKuhHnG0hYONfLJfgPGntXSj_6ESeQOICx4nWzfEM"/>
+</div>
+<span class="font-bold text-[15px] tracking-tight text-brand-deepBrown">Lernling</span>
+<span class="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded-md bg-brand-softOrange text-brand-primary border border-[#f5d9ce]">Ext</span>
+</div>
+<div class="flex items-center gap-2">
+<!-- Subtle current streak badge -->
+<div class="flex items-center gap-1 px-2 py-0.5 rounded-full bg-white border border-brand-border text-xs font-semibold text-brand-deepBrown shadow-xs">
+<span class="text-xs">🔥</span>
+<span class="text-[12px] text-brand-primary font-bold">5</span>
+</div>
+<!-- Options button -->
+<button class="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-brand-softOrange text-brand-warmMuted transition-colors" title="Settings">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+</header>
+<!-- Main Content Area with Peeking Red Panda Mascot -->
+<main class="flex-1 px-3.5 pt-3.5 pb-2 flex flex-col justify-between overflow-y-auto"><div class="flex flex-col w-full h-full select-none">
+<!-- Step Indicator Bar -->
+<div class="flex items-center justify-between px-1 pb-2 shrink-0">
+<div aria-label="Onboarding Progress" class="flex items-center gap-1.5" id="step-dots" role="tablist">
+<button aria-label="Step 1: Welcome" class="transition-all duration-300 h-2 rounded-full bg-primary w-6 focus:outline-none" id="dot-1" onclick="goToStep(1)"></button>
+<button aria-label="Step 2: Clan Privacy" class="transition-all duration-300 h-2 rounded-full bg-surface-variant w-2 hover:bg-outline-variant focus:outline-none" id="dot-2" onclick="goToStep(2)"></button>
+<button aria-label="Step 3: Ready to Learn" class="transition-all duration-300 h-2 rounded-full bg-surface-variant w-2 hover:bg-outline-variant focus:outline-none" id="dot-3" onclick="goToStep(3)"></button>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-high px-2 py-0.5 rounded-full">
+<span class="font-label-sm text-label-sm text-on-surface-variant" id="step-counter-text">Step 1 of 3</span>
+</div>
+</div>
+<!-- Interactive Slide Container -->
+<div class="relative flex-1 overflow-hidden">
+<!-- STEP 1: Welcome & Sign In -->
+<section class="step-view absolute inset-0 flex flex-col justify-between transition-all duration-300 transform translate-x-0 opacity-100" id="step-1">
+<div class="flex flex-col items-center text-center pt-1">
+<!-- Baby Red Panda Mascot Container -->
+<div class="relative w-28 h-28 mb-1 flex items-center justify-center">
+<div class="absolute inset-0 bg-gradient-to-tr from-surface-container via-primary-fixed/40 to-transparent rounded-full filter blur-md"></div>
+<div class="relative w-24 h-24 rounded-2xl bg-surface-container-lowest shadow-md flex items-center justify-center p-1.5 overflow-hidden">
+<img alt="Lernling baby red panda mascot" class="w-full h-full object-contain transform hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida/AEtjO1VqbkxvOj-1TsTmV3mlphtuF2WT1DSefwP3wZ8m8PIrjJMX_olslLifV7JOi6qHg-Y21r9VTCytSITlEC5dPm4WUppEqNiJdtVsM31_GzfvQicDAlReGL7uffEeSUCUr6HMj_6ntuTiU-8bNXcOp9q30RMV1vvXea5FsCdxHFV6Vs5nIll3iWa6reprapEctzPbiTD58fUCRd_4eBaIxyheHG7fSrI_LFLaV8W87r1_gX46kNAKr-yirA"/>
+</div>
+<!-- Cute bamboo leaf floating badge -->
+<div class="absolute -bottom-1 -right-1 bg-secondary-container text-on-secondary-container rounded-full w-6 h-6 flex items-center justify-center shadow-sm">
+<span class="font-label-sm text-label-sm">🌿</span>
+</div>
+</div>
+<h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight mt-1">Welcome to Lernling!</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant px-3 mt-1 leading-snug">
+          Turn study sessions on Coursera &amp; Udemy into friendly daily habits that grow your baby red panda.
+        </p>
+</div>
+<!-- Action Area -->
+<div class="flex flex-col gap-2 pt-2 pb-1">
+<!-- Google Sign-in Tactile Button -->
+<button class="w-full h-11 bg-surface-container-lowest hover:bg-surface-container-low text-on-surface rounded-xl shadow-sm flex items-center justify-center gap-2.5 transition-all duration-150 transform active:translate-y-0.5" onclick="goToStep(2)">
+<svg class="w-4 h-4 shrink-0" viewbox="0 0 24 24">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"></path>
+</svg>
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Sign in with Google</span>
+</button>
+<!-- Secondary Email Option -->
+<button class="w-full text-center py-1 font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" onclick="goToStep(2)">
+          Or sign in with email • <span class="text-secondary font-medium">30 seconds</span>
+</button>
+<!-- Zero Ad Tracking Reassurance Badge -->
+<div class="flex items-center justify-center gap-1.5 py-1.5 px-2.5 rounded-lg bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px] text-secondary">verified_user</span>
+<span class="font-label-sm text-label-sm">Zero ad tracking • Privacy-first den</span>
+</div>
+</div>
+</section>
+<!-- STEP 2: Friend Group & Privacy Consent -->
+<section class="step-view absolute inset-0 flex flex-col justify-between transition-all duration-300 transform translate-x-full opacity-0 pointer-events-none" id="step-2">
+<div class="flex flex-col gap-2 pt-0.5">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface tracking-tight">Clan Privacy</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">What your study group sees</p>
+</div>
+<div class="w-9 h-9 rounded-xl bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">group</span>
+</div>
+</div>
+<!-- Transparency Card -->
+<div class="bg-surface-container-lowest rounded-xl p-2.5 shadow-sm space-y-2">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-lg bg-primary-fixed flex items-center justify-center text-xs">⏱️</span>
+<div class="flex-1 min-w-0">
+<p class="font-label-md text-label-md text-on-surface">Study Minutes</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate">Logged when active on learning tabs</p>
+</div>
+<span class="material-symbols-outlined text-secondary text-base">check_circle</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-lg bg-tertiary-fixed flex items-center justify-center text-xs">🔥</span>
+<div class="flex-1 min-w-0">
+<p class="font-label-md text-label-md text-on-surface">Streak Continuity</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate">Daily momentum &amp; panda growth</p>
+</div>
+<span class="material-symbols-outlined text-secondary text-base">check_circle</span>
+</div>
+<!-- Interactive Privacy Toggle -->
+<div class="pt-1.5 bg-surface-container-low rounded-lg p-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<span class="text-xs">📚</span>
+<span class="font-label-md text-label-md text-on-surface">Hide course titles</span>
+</div>
+<button aria-checked="false" class="relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full transition-colors duration-200 ease-in-out focus:outline-none bg-outline-variant" id="privacy-toggle" onclick="toggleCourseNamePrivacy()" role="switch">
+<span class="pointer-events-none inline-block h-4 w-4 transform rounded-full bg-surface-container-lowest shadow-sm ring-0 transition duration-200 ease-in-out translate-x-0.5 mt-0.5" id="toggle-knob"></span>
+</button>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1 leading-tight" id="toggle-desc">
+              Clan sees <span class="font-semibold text-primary">"UI/UX Design Masterclass"</span>
+</p>
+</div>
+</div>
+<!-- Strict Guarantee Note -->
+<div class="flex items-start gap-2 px-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-secondary shrink-0 mt-0.5">shield</span>
+<p class="font-label-sm text-label-sm leading-tight">
+            Never logs private browsing, passwords, or inactive non-learning tabs.
+          </p>
+</div>
+</div>
+<!-- Action Navigation -->
+<div class="flex flex-col gap-1.5 pb-1">
+<button class="w-full h-11 bg-primary hover:bg-primary-container text-on-primary rounded-xl shadow-sm flex items-center justify-center gap-2 transition-all duration-150 transform active:translate-y-0.5" onclick="goToStep(3)">
+<span class="font-label-lg text-label-lg">Continue to Squad</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+<button class="w-full py-1 text-center font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors" onclick="goToStep(1)">
+          ← Back to sign in
+        </button>
+</div>
+</section>
+<!-- STEP 3: You're In & Ready to Learn -->
+<section class="step-view absolute inset-0 flex flex-col justify-between transition-all duration-300 transform translate-x-full opacity-0 pointer-events-none" id="step-3">
+<div class="flex flex-col gap-2 pt-0.5">
+<!-- Celebration Header Pill -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5 bg-secondary-container px-2.5 py-1 rounded-full text-on-secondary-container">
+<span class="text-xs">🎉</span>
+<span class="font-label-md text-label-md font-bold">You're in!</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Ready to track</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-tight">
+          Joined: The Forest Clan 🌿
+        </h2>
+<!-- Clan Members Welcome Card -->
+<div class="bg-surface-container-lowest rounded-xl p-2.5 shadow-sm flex flex-col gap-2">
+<!-- Speech Bubble Greeting -->
+<div class="relative bg-surface-container-low px-3 py-1.5 rounded-lg text-on-surface-variant">
+<p class="font-label-sm text-label-sm leading-tight text-on-surface">
+<span class="font-bold text-primary">Maya, Priya &amp; 3 others:</span> "Yay, you made it! Grab a leaf and let's study! 🐾"
+            </p>
+</div>
+<!-- Clan Avatars Pulse Row -->
+<div class="flex items-center justify-between pt-0.5">
+<div class="flex items-center -space-x-1.5">
+<div class="w-7 h-7 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-label-sm text-label-sm font-bold shadow-xs ring-2 ring-surface-container-lowest">ML</div>
+<div class="w-7 h-7 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-label-sm text-label-sm font-bold shadow-xs ring-2 ring-surface-container-lowest">PS</div>
+<div class="w-7 h-7 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center font-label-sm text-label-sm font-bold shadow-xs ring-2 ring-surface-container-lowest">JR</div>
+<div class="w-7 h-7 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-label-sm text-label-sm font-bold shadow-xs ring-2 ring-surface-container-lowest">+2</div>
+</div>
+<span class="font-label-sm text-label-sm text-secondary flex items-center gap-1 font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+              4 studying now
+            </span>
+</div>
+</div>
+<!-- Quick Platform Launchers -->
+<div class="bg-surface-container rounded-xl p-2 flex flex-col gap-1.5">
+<p class="font-label-sm text-label-sm text-on-surface-variant px-1 font-medium">Auto-detected platforms:</p>
+<div class="grid grid-cols-2 gap-1.5">
+<a class="flex items-center justify-center gap-1.5 py-1.5 px-2 bg-surface-container-lowest hover:bg-surface-container-low rounded-lg transition-colors shadow-xs" href="https://www.coursera.org" rel="noopener noreferrer" target="_blank">
+<span class="w-2 h-2 rounded-full bg-[#0056D2]"></span>
+<span class="font-label-sm text-label-sm font-bold text-on-surface">Coursera</span>
+</a>
+<a class="flex items-center justify-center gap-1.5 py-1.5 px-2 bg-surface-container-lowest hover:bg-surface-container-low rounded-lg transition-colors shadow-xs" href="https://www.udemy.com" rel="noopener noreferrer" target="_blank">
+<span class="w-2 h-2 rounded-full bg-[#A435F0]"></span>
+<span class="font-label-sm text-label-sm font-bold text-on-surface">Udemy</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Final Actions -->
+<div class="flex flex-col gap-1 pb-1">
+<a class="w-full h-11 bg-primary hover:bg-primary-container text-on-primary rounded-xl shadow-sm flex items-center justify-center gap-2 transition-all duration-150 transform active:translate-y-0.5" href="https://www.coursera.org" rel="noopener noreferrer" target="_blank">
+<span class="font-label-lg text-label-lg font-bold">Start First Study Session</span>
+<span class="material-symbols-outlined text-sm">rocket_launch</span>
+</a>
+<!-- Pin to toolbar hint -->
+<div class="flex items-center justify-center gap-1.5 py-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[13px] text-tertiary">push_pin</span>
+<p class="font-label-sm text-label-sm text-[11px] leading-tight">
+            Tip: Pin <span class="font-bold text-on-surface">Lernling</span> to your Chrome toolbar for 1-click streaks!
+          </p>
+</div>
+</div>
+</section>
+</div>
+</div>
+<script>
+  let currentStep = 1;
+  let hideCourseTitleState = false;
+
+  function goToStep(step) {
+    if (step < 1 || step > 3) return;
+    currentStep = step;
+
+    // Update Counter Text
+    const counterText = document.getElementById('step-counter-text');
+    if (counterText) {
+      counterText.innerText = `Step ${step} of 3`;
+    }
+
+    // Update Dots visual styles
+    for (let i = 1; i <= 3; i++) {
+      const dot = document.getElementById(`dot-${i}`);
+      if (!dot) continue;
+      if (i === step) {
+        dot.className = "transition-all duration-300 h-2 rounded-full bg-primary w-6 focus:outline-none";
+      } else {
+        dot.className = "transition-all duration-300 h-2 rounded-full bg-surface-variant w-2 hover:bg-outline-variant focus:outline-none";
+      }
+    }
+
+    // Shift Sections
+    for (let i = 1; i <= 3; i++) {
+      const sec = document.getElementById(`step-${i}`);
+      if (!sec) continue;
+
+      if (i === step) {
+        sec.classList.remove('translate-x-full', '-translate-x-full', 'opacity-0', 'pointer-events-none');
+        sec.classList.add('translate-x-0', 'opacity-100');
+      } else if (i < step) {
+        sec.classList.remove('translate-x-0', 'translate-x-full', 'opacity-100');
+        sec.classList.add('-translate-x-full', 'opacity-0', 'pointer-events-none');
+      } else {
+        sec.classList.remove('translate-x-0', '-translate-x-full', 'opacity-100');
+        sec.classList.add('translate-x-full', 'opacity-0', 'pointer-events-none');
+      }
+    }
+  }
+
+  function toggleCourseNamePrivacy() {
+    hideCourseTitleState = !hideCourseTitleState;
+    const toggleBtn = document.getElementById('privacy-toggle');
+    const knob = document.getElementById('toggle-knob');
+    const desc = document.getElementById('toggle-desc');
+
+    if (hideCourseTitleState) {
+      toggleBtn.classList.remove('bg-outline-variant');
+      toggleBtn.classList.add('bg-primary');
+      toggleBtn.setAttribute('aria-checked', 'true');
+      knob.classList.remove('translate-x-0.5');
+      knob.classList.add('translate-x-4');
+      desc.innerHTML = 'Clan sees <span class="font-semibold text-secondary">"Currently Studying"</span> (title hidden)';
+    } else {
+      toggleBtn.classList.remove('bg-primary');
+      toggleBtn.classList.add('bg-outline-variant');
+      toggleBtn.setAttribute('aria-checked', 'false');
+      knob.classList.remove('translate-x-4');
+      knob.classList.add('translate-x-0.5');
+      desc.innerHTML = 'Clan sees <span class="font-semibold text-primary">"UI/UX Design Masterclass"</span>';
+    }
+  }
+</script></main>
+<!-- Footer Status / Navigation Minimal Bar -->
+<footer class="h-9 px-4 bg-brand-surface border-t border-brand-border flex items-center justify-between shrink-0 text-[11px] text-brand-warmMuted">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="font-medium text-[11px]">Auto-detection enabled</span>
+</div>
+<a class="text-brand-primary hover:underline font-semibold text-[11px] flex items-center gap-0.5" href="#">
+<span>Site settings</span>
+<svg class="w-3 h-3" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</a>
+</footer>
+</div>
+</body></html>

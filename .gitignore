@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.output/
+.wxt/
+.env
+.env.*
+!.env.example
+supabase/.temp/
+.claude/
+.vercel/
+*.log
+
+.vercel

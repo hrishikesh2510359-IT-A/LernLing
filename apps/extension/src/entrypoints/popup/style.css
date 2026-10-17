@@ -1,0 +1,38 @@
+/* Functional placeholder styling. Real design comes from the Stitch exports (design/). */
+:root {
+  --bg: #fdfbf7;
+  --card: #ffffff;
+  --text: #2c211d;
+  --muted: #7c6e65;
+  --primary: #e25d33;
+  --primary-dark: #b8431d;
+  --green: #3d8a5a;
+  --green-bg: #e8f3eb;
+  --border: #f0e6dc;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; width: 360px; min-height: 200px; background: var(--bg); color: var(--text);
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 14px;
+}
+#root { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+h1 { font-size: 18px; margin: 0; }
+h2 { font-size: 13px; margin: 0 0 6px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 12px; }
+.row { display: flex; align-items: center; gap: 8px; }
+.grow { flex: 1; }
+.muted { color: var(--muted); font-size: 12px; }
+.big { font-size: 28px; font-weight: 800; }
+button {
+  font: inherit; font-weight: 700; cursor: pointer; border: 0; border-radius: 12px; padding: 8px 14px;
+  background: var(--primary); color: #fff; box-shadow: 0 3px 0 var(--primary-dark);
+}
+button:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--primary-dark); }
+button.secondary { background: var(--green-bg); color: var(--green); box-shadow: none; border: 1.5px solid #d1e6d7; }
+button.ghost { background: transparent; color: var(--muted); box-shadow: none; padding: 4px 8px; }
+input[type='text'] { font: inherit; padding: 8px 10px; border: 1.5px solid var(--border); border-radius: 12px; width: 100%; }
+.chip { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+.chip.yes { background: var(--green-bg); color: var(--green); }
+.chip.no { background: #fff1ec; color: var(--primary-dark); }
+label.check { display: flex; gap: 8px; align-items: center; padding: 4px 0; }
+.error { color: #ba1a1a; font-size: 12px; }

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=360, height=520, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Lernling Chrome Extension</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            primary: {
+              DEFAULT: '#E25D33',
+              dark: '#C84720',
+              light: '#FFEEE8',
+            },
+            bamboo: {
+              DEFAULT: '#3D8A5A',
+              light: '#EAF6EE',
+              text: '#27633D'
+            },
+            cream: {
+              50: '#FFFDFB',
+              100: '#FFF8F6',
+              200: '#FFF1EC',
+              300: '#FDE4DC',
+            },
+            cocoa: {
+              900: '#2C211D',
+              700: '#54433E',
+              500: '#86726B',
+              300: '#C7B9B4',
+              100: '#EFEAE7',
+            }
+          },
+          boxShadow: {
+            subtle: '0 2px 10px rgba(78, 44, 30, 0.05)',
+            glow: '0 4px 14px rgba(226, 93, 51, 0.18)',
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Fixed extension viewport 360 x 520 px */
+    body {
+      width: 360px;
+      height: 520px;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #FFF8F6;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #EFEAE7;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="flex flex-col text-cocoa-900 bg-cream-100">
+<!-- Top Active Site Notification Bar -->
+<div class="px-3.5 py-1.5 bg-bamboo-light border-b border-bamboo/20 flex items-center justify-between text-[11px] font-medium text-bamboo-text">
+<div class="flex items-center gap-1.5 truncate">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-bamboo opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-bamboo"></span>
+</span>
+<span class="font-bold text-cocoa-900">Coursera Active:</span>
+<span class="truncate text-cocoa-700">Cost Functions &amp; Gradients</span>
+</div>
+<span class="text-[10px] bg-white/80 px-1.5 py-0.5 rounded text-bamboo-text font-bold shrink-0 shadow-xs">
+      REC +12m
+    </span>
+</div>
+<!-- Header & Mascot Top Hero (Compact 360 layout) -->
+<header class="px-3.5 pt-2.5 pb-2 border-b border-cream-300/60 bg-cream-50/80">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5">
+<img alt="Lernling Logo" class="w-5 h-5 rounded-md object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WASKrUyVOjy68XzZKBZWipsq80NTT2lO0keYo3cCEMS515LeyIeAwpj3qwMcbR1wkgiBbco5RIkAmjfy7yTMMfR_UENnBnceFXjDeJS3NTqXSIJB21pQmldtEMGfblUAr7Uj_fSvFxvRcrEiDJDIeEkGGECIIMwF4P9LAGxJAghs4C5Ka7WwAFoVIVl72Ak9LYcwTPGhLVs_4YUuOKuhHnG0hYONfLJfgPGntXSj_6ESeQOICx4nWzfEM"/>
+<span class="font-extrabold text-[15px] tracking-tight text-cocoa-900">Lernling</span>
+<span class="bg-primary-light text-primary text-[10px] font-bold px-1.5 py-0.5 rounded-full">Ext</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-1 hover:bg-cream-200 text-cocoa-500 hover:text-cocoa-900 rounded-lg transition-colors" title="Sync now">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24">
+<path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+</svg>
+</button>
+<button class="p-1 hover:bg-cream-200 text-cocoa-500 hover:text-cocoa-900 rounded-lg transition-colors" title="Pop out / Web app">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24">
+<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"></path>
+</svg>
+</button>
+</div>
+</div>
+<!-- Top Hero Card: Mascot + Streak Flame + Progress Ring -->
+<div class="bg-white rounded-xl p-2.5 shadow-subtle border border-cream-300/70 flex items-center justify-between">
+<!-- Mascot (Happy Red Panda) with stage badge -->
+<div class="flex items-center gap-2">
+<div class="relative w-12 h-12 rounded-xl bg-primary-light/60 p-0.5 border border-primary/20 flex items-center justify-center overflow-hidden shrink-0">
+<img alt="Lernling Happy Mascot" class="w-full h-full object-cover rounded-lg" src="https://lh3.googleusercontent.com/aida/AEtjO1VqbkxvOj-1TsTmV3mlphtuF2WT1DSefwP3wZ8m8PIrjJMX_olslLifV7JOi6qHg-Y21r9VTCytSITlEC5dPm4WUppEqNiJdtVsM31_GzfvQicDAlReGL7uffEeSUCUr6HMj_6ntuTiU-8bNXcOp9q30RMV1vvXea5FsCdxHFV6Vs5nIll3iWa6reprapEctzPbiTD58fUCRd_4eBaIxyheHG7fSrI_LFLaV8W87r1_gX46kNAKr-yirA"/>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-bamboo border-2 border-white rounded-full" title="Happy &amp; Focused"></span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1">
+<span class="text-xs font-bold text-cocoa-900">Kiko is happy!</span>
+<span class="text-[10px]">✨</span>
+</div>
+<!-- Flame Streak Badge -->
+<div class="flex items-center gap-1 mt-0.5">
+<div class="inline-flex items-center gap-1 bg-amber-50 border border-amber-200/80 px-1.5 py-0.5 rounded-full">
+<span class="text-xs">🔥</span>
+<span class="text-[11px] font-extrabold text-amber-700 tracking-tight">5 day streak</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Circular Progress Ring: 12 / 10 min today + Day Counted Check -->
+<div class="flex items-center gap-2 shrink-0 pl-1">
+<div class="relative w-11 h-11 flex items-center justify-center">
+<svg class="w-11 h-11 transform -rotate-90" viewbox="0 0 36 36">
+<!-- Background circle -->
+<path class="text-cream-200" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.5"></path>
+<!-- Active full completion ring (12/10 = 120%, capped at stroke 100) -->
+<path class="text-bamboo" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="100, 100" stroke-linecap="round" stroke-width="3.5"></path>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="text-[10px] font-extrabold leading-none text-bamboo-text">12m</span>
+<span class="text-[8px] text-cocoa-500 leading-none">/ 10m</span>
+</div>
+</div>
+<div class="flex flex-col items-start">
+<div class="inline-flex items-center gap-1 bg-bamboo-light px-1.5 py-0.5 rounded-md border border-bamboo/20">
+<svg class="w-2.5 h-2.5 text-bamboo" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewbox="0 0 24 24">
+<polyline points="20 6 9 17 4 12"></polyline>
+</svg>
+<span class="text-[10px] font-bold text-bamboo-text whitespace-nowrap">Day counted</span>
+</div>
+<span class="text-[9px] text-cocoa-500 mt-0.5">Goal complete!</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Scrollable Middle Body -->
+<main class="flex-1 overflow-y-auto px-3.5 py-2 space-y-2.5 custom-scroll">
+<!-- Today's Stats Row -->
+<div>
+<div class="flex items-center justify-between mb-1.5 px-0.5">
+<span class="text-[10px] uppercase tracking-wider font-extrabold text-cocoa-500">Today's Study Stats</span>
+<span class="text-[10px] text-primary font-semibold flex items-center gap-0.5">
+<svg class="w-2.5 h-2.5" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"></path>
+</svg>
+          Tracking live
+        </span>
+</div>
+<div class="grid grid-cols-3 gap-1.5">
+<!-- Watch Time -->
+<div class="bg-white rounded-lg p-2 border border-cream-300/80 text-center shadow-xs">
+<div class="text-[10px] text-cocoa-500 font-medium">Watch Time</div>
+<div class="text-sm font-extrabold text-cocoa-900 mt-0.5">18 <span class="text-[10px] font-normal text-cocoa-500">mins</span></div>
+<div class="text-[9px] text-bamboo font-semibold mt-0.5">+6m vs yday</div>
+</div>
+<!-- Lessons Done -->
+<div class="bg-white rounded-lg p-2 border border-cream-300/80 text-center shadow-xs">
+<div class="text-[10px] text-cocoa-500 font-medium">Lessons Done</div>
+<div class="text-sm font-extrabold text-cocoa-900 mt-0.5">2 <span class="text-[10px] font-normal text-cocoa-500">items</span></div>
+<div class="text-[9px] text-primary font-semibold mt-0.5">Coursera ML</div>
+</div>
+<!-- Content Minutes -->
+<div class="bg-white rounded-lg p-2 border border-cream-300/80 text-center shadow-xs">
+<div class="text-[10px] text-cocoa-500 font-medium">Content Min</div>
+<div class="text-sm font-extrabold text-cocoa-900 mt-0.5">12 <span class="text-[10px] font-normal text-cocoa-500">mins</span></div>
+<div class="text-[9px] text-bamboo font-semibold mt-0.5">1.2x speed</div>
+</div>
+</div>
+</div>
+<!-- Friends Today Section -->
+<div>
+<div class="flex items-center justify-between mb-1.5 px-0.5">
+<div class="flex items-center gap-1.5">
+<span class="text-[10px] uppercase tracking-wider font-extrabold text-cocoa-500">Friends Today</span>
+<span class="bg-cream-200 text-cocoa-700 text-[9px] font-bold px-1.5 py-0.2 rounded-full">2/4 Studied</span>
+</div>
+<span class="text-[10px] text-cocoa-500">The Forest Clan</span>
+</div>
+<div class="bg-white rounded-xl border border-cream-300/80 divide-y divide-cream-200/80 shadow-subtle overflow-hidden">
+<!-- Friend 1: Maya Lin (Studied) -->
+<div class="p-2 flex items-center justify-between hover:bg-cream-50/50 transition-colors">
+<div class="flex items-center gap-2 min-w-0">
+<div class="relative shrink-0">
+<img alt="Maya Lin" class="w-7 h-7 rounded-full object-cover border border-cream-300" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg"/>
+<span class="absolute -bottom-0.5 -right-0.5 w-2 h-2 bg-bamboo border border-white rounded-full"></span>
+</div>
+<div class="min-w-0">
+<div class="text-[11px] font-bold text-cocoa-900 truncate flex items-center gap-1">
+                Maya Lin
+                <span class="text-[10px] text-amber-600 font-extrabold flex items-center">
+                  🔥19
+                </span>
+</div>
+<div class="text-[9px] text-cocoa-500 truncate">Udemy: UI Design Systems</div>
+</div>
+</div>
+<div class="shrink-0 pl-1.5 flex items-center">
+<span class="inline-flex items-center gap-0.5 text-[10px] font-bold bg-bamboo-light text-bamboo-text border border-bamboo/20 px-2 py-0.5 rounded-full">
+<svg class="w-2.5 h-2.5 text-bamboo" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewbox="0 0 24 24">
+<polyline points="20 6 9 17 4 12"></polyline>
+</svg>
+              Studied
+            </span>
+</div>
+</div>
+<!-- Friend 2: Julian Rossi (Not yet - with Nudge) -->
+<div class="p-2 flex items-center justify-between hover:bg-cream-50/50 transition-colors">
+<div class="flex items-center gap-2 min-w-0">
+<div class="relative shrink-0">
+<img alt="Julian Rossi" class="w-7 h-7 rounded-full object-cover border border-cream-300 opacity-90" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg"/>
+</div>
+<div class="min-w-0">
+<div class="text-[11px] font-bold text-cocoa-900 truncate flex items-center gap-1">
+                Julian Rossi
+                <span class="text-[10px] text-amber-600 font-extrabold flex items-center">
+                  🔥12
+                </span>
+</div>
+<div class="text-[9px] text-cocoa-500 truncate">Deep Learning Specialization</div>
+</div>
+</div>
+<div class="shrink-0 pl-1.5 flex items-center gap-1">
+<span class="text-[9px] font-semibold text-cocoa-500 bg-cream-200 px-1.5 py-0.5 rounded-full">
+              Not yet
+            </span>
+<button class="inline-flex items-center gap-0.5 bg-primary hover:bg-primary-dark text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-xs transition-colors active:scale-95">
+<span>🍃</span>
+<span>Nudge</span>
+</button>
+</div>
+</div>
+<!-- Friend 3: Priya Sharma (Studied) -->
+<div class="p-2 flex items-center justify-between hover:bg-cream-50/50 transition-colors">
+<div class="flex items-center gap-2 min-w-0">
+<div class="relative shrink-0">
+<img alt="Priya Sharma" class="w-7 h-7 rounded-full object-cover border border-cream-300" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg"/>
+<span class="absolute -bottom-0.5 -right-0.5 w-2 h-2 bg-bamboo border border-white rounded-full"></span>
+</div>
+<div class="min-w-0">
+<div class="text-[11px] font-bold text-cocoa-900 truncate flex items-center gap-1">
+                Priya Sharma
+                <span class="text-[10px] text-amber-600 font-extrabold flex items-center">
+                  🔥8
+                </span>
+</div>
+<div class="text-[9px] text-cocoa-500 truncate">edX: Cognitive Science</div>
+</div>
+</div>
+<div class="shrink-0 pl-1.5 flex items-center">
+<span class="inline-flex items-center gap-0.5 text-[10px] font-bold bg-bamboo-light text-bamboo-text border border-bamboo/20 px-2 py-0.5 rounded-full">
+<svg class="w-2.5 h-2.5 text-bamboo" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewbox="0 0 24 24">
+<polyline points="20 6 9 17 4 12"></polyline>
+</svg>
+              Studied
+            </span>
+</div>
+</div>
+<!-- Friend 4: Leo Vance (Not yet - with Nudge) -->
+<div class="p-2 flex items-center justify-between hover:bg-cream-50/50 transition-colors">
+<div class="flex items-center gap-2 min-w-0">
+<div class="relative shrink-0">
+<img alt="Leo Vance" class="w-7 h-7 rounded-full object-cover border border-cream-300 opacity-90" src="https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg"/>
+</div>
+<div class="min-w-0">
+<div class="text-[11px] font-bold text-cocoa-900 truncate flex items-center gap-1">
+                Leo Vance
+                <span class="text-[10px] text-amber-600 font-extrabold flex items-center">
+                  🔥4
+                </span>
+</div>
+<div class="text-[9px] text-cocoa-500 truncate">Udemy: Web Audio &amp; DSP</div>
+</div>
+</div>
+<div class="shrink-0 pl-1.5 flex items-center gap-1">
+<span class="text-[9px] font-semibold text-cocoa-500 bg-cream-200 px-1.5 py-0.5 rounded-full">
+              Not yet
+            </span>
+<button class="inline-flex items-center gap-0.5 bg-primary hover:bg-primary-dark text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-xs transition-colors active:scale-95">
+<span>🍃</span>
+<span>Nudge</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Extension Footer: Fixed Tab Navigation (Home, Group, Settings) -->
+<footer class="h-11 bg-white border-t border-cream-300/80 px-6 flex items-center justify-around shrink-0 shadow-xs">
+<!-- Home Tab (Active) -->
+<button class="flex flex-col items-center justify-center text-primary font-bold transition-transform active:scale-95">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24">
+<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+<span class="text-[10px] mt-0.5">Home</span>
+</button>
+<!-- Group Tab -->
+<button class="flex flex-col items-center justify-center text-cocoa-500 hover:text-cocoa-900 transition-colors font-medium active:scale-95">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+<circle cx="9" cy="7" r="4"></circle>
+<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+</svg>
+<span class="text-[10px] mt-0.5">Group</span>
+</button>
+<!-- Settings Tab -->
+<button class="flex flex-col items-center justify-center text-cocoa-500 hover:text-cocoa-900 transition-colors font-medium active:scale-95">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="3"></circle>
+<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+</svg>
+<span class="text-[10px] mt-0.5">Settings</span>
+</button>
+</footer>
+</body>
+</html>

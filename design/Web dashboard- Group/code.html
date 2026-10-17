@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      "colors": {
+        "background": "#fff8f6",
+        "on-tertiary-fixed": "#2a1700",
+        "on-primary": "#ffffff",
+        "primary-container": "#c94b22",
+        "on-tertiary-fixed-variant": "#653e00",
+        "on-surface": "#241915",
+        "on-secondary-container": "#227245",
+        "outline-variant": "#e0bfb6",
+        "tertiary-fixed-dim": "#ffb95f",
+        "surface-container-highest": "#f3ded8",
+        "surface-container-lowest": "#ffffff",
+        "tertiary-fixed": "#ffddb8",
+        "error-container": "#ffdad6",
+        "tertiary": "#825100",
+        "secondary-container": "#a4f4bb",
+        "surface-tint": "#ab360d",
+        "primary-fixed-dim": "#ffb59f",
+        "surface-container-high": "#f8e4dd",
+        "on-error-container": "#93000a",
+        "on-secondary-fixed": "#00210e",
+        "on-secondary": "#ffffff",
+        "primary-fixed": "#ffdbd1",
+        "on-primary-container": "#fffbff",
+        "secondary-fixed": "#a4f4bb",
+        "surface-bright": "#fff8f6",
+        "on-primary-fixed-variant": "#862300",
+        "on-surface-variant": "#59413b",
+        "surface-variant": "#f3ded8",
+        "primary": "#a7330a",
+        "on-tertiary-container": "#fffbff",
+        "error": "#ba1a1a",
+        "inverse-surface": "#3a2e29",
+        "secondary": "#1a6c3f",
+        "outline": "#8c7169",
+        "surface-container": "#feeae3",
+        "inverse-primary": "#ffb59f",
+        "on-primary-fixed": "#3a0a00",
+        "on-secondary-fixed-variant": "#00522c",
+        "on-background": "#241915",
+        "secondary-fixed-dim": "#89d7a1",
+        "on-error": "#ffffff",
+        "on-tertiary": "#ffffff",
+        "surface-dim": "#ead6cf",
+        "surface": "#fff8f6",
+        "surface-container-low": "#fff1ec",
+        "tertiary-container": "#a36700",
+        "inverse-on-surface": "#ffede7"
+      },
+      "borderRadius": {
+        "DEFAULT": "0.25rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "full": "9999px"
+      },
+      "spacing": {
+        "gutter": "1rem",
+        "space-sm": "0.5rem",
+        "margin-md": "2rem",
+        "space-lg": "1.5rem",
+        "space-md": "1rem",
+        "space-xs": "0.25rem",
+        "space-xl": "2.5rem",
+        "margin-lg": "3rem",
+        "gutter-md": "1.5rem",
+        "margin": "1rem"
+      },
+      "fontFamily": {
+        "body-sm": ["Plus Jakarta Sans"],
+        "headline-lg": ["Plus Jakarta Sans"],
+        "label-sm": ["Plus Jakarta Sans"],
+        "headline-sm": ["Plus Jakarta Sans"],
+        "label-lg": ["Plus Jakarta Sans"],
+        "body-md": ["Plus Jakarta Sans"],
+        "headline-lg-mobile": ["Plus Jakarta Sans"],
+        "label-md": ["Plus Jakarta Sans"],
+        "display-lg": ["Plus Jakarta Sans"],
+        "headline-md": ["Plus Jakarta Sans"],
+        "body-lg": ["Plus Jakarta Sans"],
+        "title-md": ["Plus Jakarta Sans"],
+        "display-lg-mobile": ["Plus Jakarta Sans"]
+      },
+      "fontSize": {
+        "body-sm": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+        "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "600"}],
+        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "700"}],
+        "body-md": ["15px", {"lineHeight": "24px", "fontWeight": "400"}],
+        "headline-lg-mobile": ["26px", {"lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+        "display-lg": ["44px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.005em", "fontWeight": "700"}],
+        "body-lg": ["17px", {"lineHeight": "26px", "fontWeight": "400"}],
+        "title-md": ["18px", {"lineHeight": "26px", "fontWeight": "600"}],
+        "display-lg-mobile": ["34px", {"lineHeight": "42px", "letterSpacing": "-0.015em", "fontWeight": "800"}]
+      }
+    }
+  }
+}</script></head><body class="bg-background font-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low shadow-[0_1px_8px_rgba(74,59,50,0.04)] z-50 flex flex-col justify-between py-space-lg"><div class="flex flex-col gap-space-lg"><div class="flex items-center gap-space-sm px-space-lg"><img alt="A cute, stylized minimalist baby red panda face icon with friendly round ears with white fluffy tips, warm rust-orange fur, white brow patches, and a cozy study leaf sprout or subtle flame ember, vector app logo style, modern, clean, icon mark. Design context: - Primary color: #e25d33
+- Font: plusJakartaSans
+- Mode: light
+- Roundness: rounded-md
+. The logo should be visually consistent with these brand tokens." class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WASKrUyVOjy68XzZKBZWipsq80NTT2lO0keYo3cCEMS515LeyIeAwpj3qwMcbR1wkgiBbco5RIkAmjfy7yTMMfR_UENnBnceFXjDeJS3NTqXSIJB21pQmldtEMGfblUAr7Uj_fSvFxvRcrEiDJDIeEkGGECIIMwF4P9LAGxJAghs4C5Ka7WwAFoVIVl72Ak9LYcwTPGhLVs_4YUuOKuhHnG0hYONfLJfgPGntXSj_6ESeQOICx4nWzfEM"/><span class="font-headline-sm text-headline-sm text-primary tracking-tight">Lernling</span></div><nav class="flex flex-col gap-space-xs px-space-md" data-active-classes="bg-primary-container text-on-primary-container font-label-lg rounded-xl shadow-[0_4px_12px_rgba(167,51,10,0.15)]"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="home" href="#"><span class="material-symbols-outlined text-[20px]">cottage</span><span>Home</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="group" href="#"><span class="material-symbols-outlined text-[20px]">diversity_2</span><span>Group</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="badges" href="#"><span class="material-symbols-outlined text-[20px]">verified</span><span>Badges</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span>Settings</span></a></nav></div><div class="px-space-md"><div class="bg-surface-container p-space-md rounded-xl flex items-center gap-space-sm"><div class="w-9 h-9 rounded-full bg-secondary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-secondary text-[20px]">eco</span></div><div class="flex flex-col"><span class="font-label-sm text-label-sm text-on-surface-variant">Red Panda Den</span><span class="font-label-md text-label-md text-on-surface font-semibold">Level 4 Scholar</span></div></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(74,59,50,0.04)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-sm"><div class="flex items-center gap-space-xs bg-surface-container-high px-space-md py-space-xs rounded-full shadow-[0_2px_4px_rgba(74,59,50,0.04)]"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span><span class="material-symbols-outlined text-secondary text-[16px]">sync_saved_locally</span><span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Chrome Extension Active</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container px-space-md py-space-xs rounded-full"><span class="material-symbols-outlined text-primary text-[18px]">local_fire_department</span><span class="font-label-md text-label-md text-on-surface font-bold">12 Days</span></div><button aria-label="Notifications" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span></button><div class="flex items-center gap-space-sm pl-space-xs"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="hidden md:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Milo Chen</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-tight">Self-Paced</span></div></div></div></header><main class="w-full pt-16 bg-background min-h-screen"><div class="flex flex-col w-full">
+<div class="px-space-lg lg:px-margin-lg py-space-xl max-w-[1240px] mx-auto w-full flex flex-col gap-space-xl">
+<!-- Clan Header & Actions -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold tracking-wide uppercase">
+<span class="material-symbols-outlined text-[14px]">forest</span> Forest Clan #8842
+          </span>
+<span class="inline-flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> 5 Scholars Active
+          </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Study Squad 🌿 The Forest Clan</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl">
+          Learn together, keep the flame alive. Shared motivation, mutual nudges, and cozy habit growth for your inner circle.
+        </p>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="flex items-center gap-space-xs bg-surface-container-high px-space-md py-space-sm rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">link</span>
+<span class="font-label-sm text-label-sm text-on-surface select-all font-mono">lernling.app/join/forest-8842</span>
+<button class="ml-space-xs p-1 rounded-lg hover:bg-surface-container transition-colors text-on-surface-variant" id="copyInviteBtn" onclick="copyInviteLink()" title="Copy link">
+<span class="material-symbols-outlined text-[16px]" id="copyIcon">content_copy</span>
+</button>
+</div>
+<button class="flex items-center gap-space-xs bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg px-space-lg py-space-sm rounded-xl shadow-md transition-all active:translate-y-0.5" onclick="openInviteModal()">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+<span>Invite Friends</span>
+</button>
+</div>
+</div>
+<!-- Squad Streak Banner & Metrics Card -->
+<div class="relative overflow-hidden bg-surface-container-lowest rounded-2xl p-space-lg lg:p-space-xl shadow-[0_4px_24px_rgba(74,59,50,0.05)] flex flex-col gap-space-lg">
+<div class="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-primary-fixed/30 blur-3xl pointer-events-none"></div>
+<div class="absolute right-32 bottom-0 w-48 h-48 rounded-full bg-secondary-container/40 blur-2xl pointer-events-none"></div>
+<div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-space-md relative z-10">
+<div class="flex items-center gap-space-md">
+<div class="w-14 h-14 rounded-2xl bg-primary-fixed flex items-center justify-center text-primary shrink-0 shadow-inner">
+<span class="material-symbols-outlined text-[32px]">local_fire_department</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-sm text-headline-sm text-on-surface">Squad Streak: 4 of 5 studied today</span>
+<span class="px-space-xs py-0.5 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm font-bold">80%</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              1 member left to preserve today's Clan Multiplier (<span class="font-semibold text-primary">1.25x Squad XP</span>)!
+            </p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container-low px-space-md py-space-sm rounded-xl">
+<span class="material-symbols-outlined text-secondary text-[20px]">spa</span>
+<span class="font-label-md text-label-md text-on-surface">Daily Clan Harvest: <strong>+40 Bamboo</strong></span>
+</div>
+</div>
+<!-- Squad Progress Meter -->
+<div class="flex flex-col gap-space-xs relative z-10">
+<div class="h-3 w-full bg-surface-container-high rounded-full overflow-hidden p-0.5">
+<div class="h-full bg-gradient-to-r from-primary to-primary-container rounded-full transition-all duration-700 ease-out" style="width: 80%"></div>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant font-label-sm text-label-sm">
+<span>0/5 Members</span>
+<span class="text-primary font-semibold">Goal: 5/5 to safeguard 21-Day Fire Record</span>
+<span>5/5 All Safe</span>
+</div>
+</div>
+<!-- Quick Stats Bento Strip -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-md pt-space-xs border-t-0 relative z-10">
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Squad Streak</span>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-md text-headline-md text-primary font-bold">21</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Days active</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Focus Time</span>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-md text-headline-md text-on-surface font-bold">48.5</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Hours (Week)</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Clan Rank Tier</span>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-md text-headline-md text-secondary font-bold">Tier III</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Forest Den</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Treat Stash</span>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-md text-headline-md text-tertiary font-bold">240</span>
+<span class="font-label-md text-label-md text-on-surface-variant">/ 300 leaves</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Content Area: Roster & Heatmaps (Left 8 cols) + Social Activity / Milestones (Right 4 cols) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+<!-- Left Column: Weekly Leaderboard & 30-Day Heatmaps -->
+<div class="lg:col-span-8 flex flex-col gap-space-lg">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Weekly Study Roster</h2>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Updated real-time from Chrome learning extensions</span>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container-high px-space-sm py-1 rounded-full text-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">calendar_today</span>
+<span>Week 14 (Apr 8 – 14)</span>
+</div>
+</div>
+<!-- Member 1: You (Alex / Milo) - 1st Rank -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-[0_2px_12px_rgba(74,59,50,0.04)] flex flex-col gap-space-md transition-all hover:shadow-[0_8px_20px_rgba(74,59,50,0.08)]">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center font-bold text-label-md shrink-0 shadow-sm">
+                1
+              </div>
+<div class="relative">
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-on-primary ring-2 ring-secondary ring-offset-2 ring-offset-surface-container-lowest">
+<span class="material-symbols-outlined text-[24px]">person</span>
+</div>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest" title="Studying now"></span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-title-md text-title-md text-on-surface font-bold">You (Alex Chen)</span>
+<span class="px-space-xs py-0.5 rounded-md bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm">Squad Leader</span>
+</div>
+<div class="flex items-center gap-space-sm font-label-sm text-label-sm text-on-surface-variant">
+<span class="flex items-center gap-1 text-primary font-semibold">
+<span class="material-symbols-outlined text-[16px]">local_fire_department</span> 21 Days
+                  </span>
+<span>•</span>
+<span>Total: <strong>14h 45m</strong> this week</span>
+<span class="text-secondary font-semibold">(+45m vs avg)</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm self-start md:self-auto">
+<div class="inline-flex items-center gap-1.5 px-space-md py-1.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span>Studied 52m today • Coursera</span>
+</div>
+</div>
+</div>
+<!-- Heatmap Strip -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-xs">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="font-medium">30-Day Activity Track (96% Consistency)</span>
+<span class="text-secondary font-semibold">29 / 30 Days</span>
+</div>
+<!-- 30-Day mini grid: 5 blocks of 6 days -->
+<div class="grid grid-cols-15 sm:grid-cols-30 gap-1.5 pt-1">
+<!-- Days 1-30 with variable rust-orange density -->
+<div class="h-4 rounded-sm bg-primary" title="Day 1: 65m"></div>
+<div class="h-4 rounded-sm bg-primary-container" title="Day 2: 45m"></div>
+<div class="h-4 rounded-sm bg-primary" title="Day 3: 70m"></div>
+<div class="h-4 rounded-sm bg-primary-container" title="Day 4: 40m"></div>
+<div class="h-4 rounded-sm bg-primary-fixed" title="Day 5: 20m"></div>
+<div class="h-4 rounded-sm bg-primary" title="Day 6: 60m"></div>
+<div class="h-4 rounded-sm bg-primary" title="Day 7: 80m"></div>
+<div class="h-4 rounded-sm bg-primary-container" title="Day 8: 45m"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest" title="Day 9: Rest day"></div>
+<div class="h-4 rounded-sm bg-primary" title="Day 10: 60m"></div>
+<div class="h-4 rounded-sm bg-primary-container" title="Day 11: 50m"></div>
+<div class="h-4 rounded-sm bg-primary" title="Day 12: 90m"></div>
+<div class="h-4 rounded-sm bg-primary" title="Day 13: 55m"></div>
+<div class="h-4 rounded-sm bg-primary-fixed" title="Day 14: 25m"></div>
+<div class="h-4 rounded-sm bg-primary" title="Day 15: 75m"></div>
+<div class="h-4 rounded-sm bg-primary-container" title="Day 16: 45m"></div>
+<div class="h-4 rounded-sm bg-primary" title="Day 17: 60m"></div>
+<div class="h-4 rounded-sm bg-primary" title="Day 18: 50m"></div>
+<div class="h-4 rounded-sm bg-primary" title="Day 19: 80m"></div>
+<div class="h-4 rounded-sm bg-primary-container" title="Day 20: 35m"></div>
+<div class="h-4 rounded-sm bg-primary" title="Day 21: 65m"></div>
+<div class="h-4 rounded-sm bg-primary" title="Day 22: 55m"></div>
+<div class="h-4 rounded-sm bg-primary-fixed" title="Day 23: 30m"></div>
+<div class="h-4 rounded-sm bg-primary" title="Day 24: 65m"></div>
+<div class="h-4 rounded-sm bg-primary" title="Day 25: 70m"></div>
+<div class="h-4 rounded-sm bg-primary-container" title="Day 26: 45m"></div>
+<div class="h-4 rounded-sm bg-primary" title="Day 27: 60m"></div>
+<div class="h-4 rounded-sm bg-primary" title="Day 28: 55m"></div>
+<div class="h-4 rounded-sm bg-primary" title="Day 29: 75m"></div>
+<div class="h-4 rounded-sm bg-primary ring-2 ring-secondary ring-offset-1" title="Today: 52m"></div>
+</div>
+</div>
+</div>
+<!-- Member 2: Maya Lin - 2nd Rank -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-[0_2px_12px_rgba(74,59,50,0.04)] flex flex-col gap-space-md transition-all hover:shadow-[0_8px_20px_rgba(74,59,50,0.08)]">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-bold text-label-md shrink-0">
+                2
+              </div>
+<div class="relative">
+<div class="w-12 h-12 rounded-full bg-tertiary flex items-center justify-center text-on-tertiary">
+<span class="font-headline-sm font-bold text-[18px]">ML</span>
+</div>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-title-md text-title-md text-on-surface font-bold">Maya Lin</span>
+<span class="px-space-xs py-0.5 rounded-md bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Fellow Scholar</span>
+</div>
+<div class="flex items-center gap-space-sm font-label-sm text-label-sm text-on-surface-variant">
+<span class="flex items-center gap-1 text-primary font-semibold">
+<span class="material-symbols-outlined text-[16px]">local_fire_department</span> 19 Days
+                  </span>
+<span>•</span>
+<span>Total: <strong>11h 20m</strong> this week</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm self-start md:self-auto">
+<div class="inline-flex items-center gap-1.5 px-space-md py-1.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span>Studied 45m today • Udemy</span>
+</div>
+<button class="p-2 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface-variant transition-colors" onclick="sendCheer('Maya Lin')" title="Send Bamboo snack">
+<span class="material-symbols-outlined text-[18px]">eco</span>
+</button>
+</div>
+</div>
+<!-- Heatmap Strip -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-xs">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="font-medium">30-Day Activity Track (90% Consistency)</span>
+<span class="text-secondary font-semibold">27 / 30 Days</span>
+</div>
+<div class="grid grid-cols-15 sm:grid-cols-30 gap-1.5 pt-1">
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-fixed"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary-fixed"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary-fixed"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-fixed"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary ring-2 ring-secondary ring-offset-1"></div>
+</div>
+</div>
+</div>
+<!-- Member 3: Julian Rossi - 3rd Rank -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-[0_2px_12px_rgba(74,59,50,0.04)] flex flex-col gap-space-md transition-all hover:shadow-[0_8px_20px_rgba(74,59,50,0.08)]">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-bold text-label-md shrink-0">
+                3
+              </div>
+<div class="relative">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="font-headline-sm font-bold text-[18px]">JR</span>
+</div>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-title-md text-title-md text-on-surface font-bold">Julian Rossi</span>
+</div>
+<div class="flex items-center gap-space-sm font-label-sm text-label-sm text-on-surface-variant">
+<span class="flex items-center gap-1 text-primary font-semibold">
+<span class="material-symbols-outlined text-[16px]">local_fire_department</span> 14 Days
+                  </span>
+<span>•</span>
+<span>Total: <strong>8h 15m</strong> this week</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm self-start md:self-auto">
+<div class="inline-flex items-center gap-1.5 px-space-md py-1.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span>Studied 35m today • edX</span>
+</div>
+<button class="p-2 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface-variant transition-colors" onclick="sendCheer('Julian Rossi')" title="Send Bamboo snack">
+<span class="material-symbols-outlined text-[18px]">eco</span>
+</button>
+</div>
+</div>
+<!-- Heatmap Strip -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-xs">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="font-medium">30-Day Activity Track (83% Consistency)</span>
+<span class="text-secondary font-semibold">25 / 30 Days</span>
+</div>
+<div class="grid grid-cols-15 sm:grid-cols-30 gap-1.5 pt-1">
+<div class="h-4 rounded-sm bg-primary-fixed"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary-fixed"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary-fixed"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary-fixed"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary ring-2 ring-secondary ring-offset-1"></div>
+</div>
+</div>
+</div>
+<!-- Member 4: Priya Sharma - 4th Rank -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-[0_2px_12px_rgba(74,59,50,0.04)] flex flex-col gap-space-md transition-all hover:shadow-[0_8px_20px_rgba(74,59,50,0.08)]">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-bold text-label-md shrink-0">
+                4
+              </div>
+<div class="relative">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="font-headline-sm font-bold text-[18px]">PS</span>
+</div>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-title-md text-title-md text-on-surface font-bold">Priya Sharma</span>
+</div>
+<div class="flex items-center gap-space-sm font-label-sm text-label-sm text-on-surface-variant">
+<span class="flex items-center gap-1 text-primary font-semibold">
+<span class="material-symbols-outlined text-[16px]">local_fire_department</span> 12 Days
+                  </span>
+<span>•</span>
+<span>Total: <strong>7h 50m</strong> this week</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm self-start md:self-auto">
+<div class="inline-flex items-center gap-1.5 px-space-md py-1.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span>Studied 28m today • Khan Academy</span>
+</div>
+<button class="p-2 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface-variant transition-colors" onclick="sendCheer('Priya Sharma')" title="Send Bamboo snack">
+<span class="material-symbols-outlined text-[18px]">eco</span>
+</button>
+</div>
+</div>
+<!-- Heatmap Strip -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-xs">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="font-medium">30-Day Activity Track (80% Consistency)</span>
+<span class="text-secondary font-semibold">24 / 30 Days</span>
+</div>
+<div class="grid grid-cols-15 sm:grid-cols-30 gap-1.5 pt-1">
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-fixed"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary-fixed"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-fixed"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary-fixed"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary ring-2 ring-secondary ring-offset-1"></div>
+</div>
+</div>
+</div>
+<!-- Member 5: Leo Vance - 5th Rank (Needs Nudge!) -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-[0_4px_16px_rgba(167,51,10,0.08)] flex flex-col gap-space-md relative overflow-hidden transition-all hover:shadow-lg">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-tertiary"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm pl-2">
+<div class="flex items-center gap-space-md">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-bold text-label-md shrink-0">
+                5
+              </div>
+<div class="relative">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="font-headline-sm font-bold text-[18px]">LV</span>
+</div>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full bg-outline ring-2 ring-surface-container-lowest" title="Offline"></span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-title-md text-title-md text-on-surface font-bold">Leo Vance</span>
+<span class="px-space-xs py-0.5 rounded-md bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">Streak at risk</span>
+</div>
+<div class="flex items-center gap-space-sm font-label-sm text-label-sm text-on-surface-variant">
+<span class="flex items-center gap-1 text-tertiary font-semibold">
+<span class="material-symbols-outlined text-[16px]">local_fire_department</span> 4 Days
+                  </span>
+<span>•</span>
+<span>Total: <strong>6h 30m</strong> this week</span>
+</div>
+</div>
+</div>
+<!-- Gentle Nudge Interaction Button -->
+<div class="flex items-center gap-space-sm self-start md:self-auto">
+<div class="inline-flex items-center gap-1.5 px-space-md py-1.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-medium">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+<span>Not studied yet today</span>
+</div>
+<button class="flex items-center gap-1.5 px-space-md py-1.5 rounded-xl bg-secondary hover:bg-on-secondary-fixed-variant text-on-secondary font-label-sm text-label-sm font-bold shadow-sm transition-transform active:scale-95" id="nudgeLeoBtn" onclick="nudgeMember('Leo Vance')">
+<span class="material-symbols-outlined text-[16px]">pets</span>
+<span>Nudge Leo</span>
+</button>
+</div>
+</div>
+<!-- Leo's Heatmap Strip -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-xs ml-2">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="font-medium">30-Day Activity Track (70% Consistency)</span>
+<span class="text-tertiary font-semibold">21 / 30 Days (Waiting for today)</span>
+</div>
+<div class="grid grid-cols-15 sm:grid-cols-30 gap-1.5 pt-1">
+<div class="h-4 rounded-sm bg-primary-fixed"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary-fixed"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary-fixed"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-surface-container-highest"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary"></div>
+<div class="h-4 rounded-sm bg-primary-container"></div>
+<!-- Today: Unstudied pulse cell -->
+<div class="h-4 rounded-sm bg-surface-container-highest ring-2 ring-tertiary-fixed-dim animate-pulse" title="Today: Needs 10m study"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Clan Rewards Vault & Live Social Cheering Feed -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg">
+<!-- Clan Milestone / Sanctuary Vault -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-[0_4px_16px_rgba(74,59,50,0.05)] flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface">Clan Habitat Goal</span>
+<span class="material-symbols-outlined text-secondary text-[24px]">hot_tub</span>
+</div>
+<div class="relative rounded-xl overflow-hidden bg-surface-container-low p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center text-on-secondary shrink-0">
+<span class="material-symbols-outlined text-[20px]">nature_people</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Hot Spring Sanctuary</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Unlocks at 25-Day Squad Streak</span>
+</div>
+</div>
+<!-- Progress bar to 25 days -->
+<div class="flex flex-col gap-1 mt-space-xs">
+<div class="flex justify-between font-label-sm text-label-sm">
+<span class="font-semibold text-primary">21 Days</span>
+<span class="text-on-surface-variant">4 Days to unlock</span>
+</div>
+<div class="h-2.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 84%"></div>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              Gives all 5 clan members custom misty-spring animated habitat scenes and +15% bamboo feeding bonuses.
+            </p>
+</div>
+<!-- Stash Bank -->
+<div class="flex items-center justify-between p-space-md rounded-xl bg-surface-container">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">eco</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Clan Bamboo Vault</span>
+<span class="font-label-lg text-label-lg text-on-surface font-bold">240 / 300 Leaves</span>
+</div>
+</div>
+<button class="px-space-md py-1.5 rounded-xl bg-surface-container-lowest text-primary font-label-sm text-label-sm font-bold hover:bg-primary hover:text-on-primary transition-colors shadow-sm" onclick="feedSharedPanda()">
+              Snack Panda
+            </button>
+</div>
+</div>
+<!-- Live Social Cheering Feed -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-[0_4px_16px_rgba(74,59,50,0.05)] flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface">Clan Pokes &amp; High-Fives</span>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+<div class="flex flex-col gap-space-sm" id="activityFeedList">
+<!-- Feed Item 1 -->
+<div class="p-space-sm rounded-xl bg-surface-container-low flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center font-bold text-label-sm shrink-0">
+                ML
+              </div>
+<div class="flex flex-col">
+<p class="font-body-sm text-body-sm text-on-surface">
+<strong>Maya</strong> cheered your 21-day streak!
+                </p>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">🎋 +5 Bamboo treats awarded</span>
+<span class="font-label-sm text-label-sm text-outline mt-0.5">14m ago</span>
+</div>
+</div>
+<!-- Feed Item 2 -->
+<div class="p-space-sm rounded-xl bg-surface-container-low flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold text-label-sm shrink-0">
+                PS
+              </div>
+<div class="flex flex-col">
+<p class="font-body-sm text-body-sm text-on-surface">
+<strong>Priya</strong> completed 2 modules in Cognitive Psychology.
+                </p>
+<span class="font-label-sm text-label-sm text-outline mt-0.5">1h ago</span>
+</div>
+</div>
+<!-- Feed Item 3 -->
+<div class="p-space-sm rounded-xl bg-surface-container-low flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-label-sm shrink-0">
+                JR
+              </div>
+<div class="flex flex-col">
+<p class="font-body-sm text-body-sm text-on-surface">
+<strong>Julian</strong> sent a red panda high-five to the clan!
+                </p>
+<span class="font-label-sm text-label-sm text-outline mt-0.5">3h ago</span>
+</div>
+</div>
+<!-- Feed Item 4 -->
+<div class="p-space-sm rounded-xl bg-surface-container-low flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-bold text-label-sm shrink-0">
+                AC
+              </div>
+<div class="flex flex-col">
+<p class="font-body-sm text-body-sm text-on-surface">
+<strong>Alex (You)</strong> nudged Leo to complete his 10-min goal.
+                </p>
+<span class="font-label-sm text-label-sm text-outline mt-0.5">Yesterday</span>
+</div>
+</div>
+</div>
+<!-- Quick Reaction Trigger Bar -->
+<div class="pt-space-xs border-t-0 flex items-center justify-between gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Send Clan Reaction:</span>
+<div class="flex items-center gap-1">
+<button class="w-9 h-9 rounded-xl bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-[18px] transition-transform active:scale-90" onclick="postClanReaction('🎋 Bamboo snack sent to squad!')" title="Send Bamboo">
+                🎋
+              </button>
+<button class="w-9 h-9 rounded-xl bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-[18px] transition-transform active:scale-90" onclick="postClanReaction('🐾 Soft red panda paw poke sent!')" title="Send Paw Bump">
+                🐾
+              </button>
+<button class="w-9 h-9 rounded-xl bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-[18px] transition-transform active:scale-90" onclick="postClanReaction('🔥 Squad flame cheer sent!')" title="Send Flame Cheer">
+                🔥
+              </button>
+<button class="w-9 h-9 rounded-xl bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-[18px] transition-transform active:scale-90" onclick="postClanReaction('🍵 Warm tea break shared!')" title="Send Tea Cup">
+                🍵
+              </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Toast / Snack Notification Container -->
+<div class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 ease-out pointer-events-none flex items-center gap-space-sm bg-inverse-surface text-inverse-on-surface px-space-lg py-space-sm rounded-xl shadow-xl" id="clanToast">
+<span class="material-symbols-outlined text-secondary-fixed text-[20px]">favorite</span>
+<span class="font-label-md text-label-md font-medium" id="clanToastText">Notification message</span>
+</div>
+<!-- Invite Friends Dialog Modal (Hidden by default) -->
+<div class="fixed inset-0 z-50 bg-on-surface/40 backdrop-blur-sm hidden items-center justify-center p-space-md" id="inviteModal">
+<div class="bg-surface-container-lowest max-w-md w-full rounded-2xl p-space-xl shadow-2xl flex flex-col gap-space-lg">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[24px]">group_add</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Invite to Forest Clan</h3>
+</div>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container" onclick="closeInviteModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+        Add up to 8 scholars to your clan. When your clan studies daily, everyone receives 1.25x bamboo points and unlockable sanctuary habitats!
+      </p>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Clan Direct Link</label>
+<div class="flex items-center gap-space-xs bg-surface-container p-space-sm rounded-xl">
+<input class="bg-transparent text-on-surface font-body-sm text-body-sm flex-1 outline-none select-all" readonly="" type="text" value="https://lernling.app/join/forest-clan-8842"/>
+<button class="px-space-md py-1.5 bg-primary text-on-primary rounded-lg font-label-sm text-label-sm font-semibold hover:bg-primary-container transition-colors" onclick="copyModalLink()">
+            Copy
+          </button>
+</div>
+</div>
+<div class="flex flex-col gap-space-sm">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Or Invite via Email</label>
+<div class="flex gap-space-xs">
+<input class="flex-1 bg-surface-container-low px-space-md py-space-sm rounded-xl font-body-sm text-body-sm text-on-surface outline-none focus:ring-2 focus:ring-primary/20" placeholder="friend@university.edu" type="email"/>
+<button class="px-space-md py-space-sm bg-secondary text-on-secondary rounded-xl font-label-md text-label-md font-semibold hover:bg-on-secondary-fixed-variant transition-colors" onclick="showToast('Invitation sent to your friend!')">
+            Send
+          </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+    function showToast(message) {
+      const toast = document.getElementById('clanToast');
+      const text = document.getElementById('clanToastText');
+      text.textContent = message;
+      toast.classList.remove('translate-y-24', 'opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0', 'pointer-events-none');
+      }, 3200);
+    }
+
+    function copyInviteLink() {
+      navigator.clipboard.writeText('https://lernling.app/join/forest-clan-8842').then(() => {
+        const icon = document.getElementById('copyIcon');
+        icon.textContent = 'done';
+        showToast('Invite link copied to clipboard!');
+        setTimeout(() => {
+          icon.textContent = 'content_copy';
+        }, 2000);
+      }).catch(() => {
+        showToast('Invite link copied!');
+      });
+    }
+
+    function copyModalLink() {
+      navigator.clipboard.writeText('https://lernling.app/join/forest-clan-8842');
+      showToast('Invite link copied!');
+      closeInviteModal();
+    }
+
+    function nudgeMember(name) {
+      const btn = document.getElementById('nudgeLeoBtn');
+      btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">done</span><span>Nudged!</span>';
+      btn.classList.remove('bg-secondary', 'hover:bg-on-secondary-fixed-variant');
+      btn.classList.add('bg-surface-container-highest', 'text-on-surface-variant', 'pointer-events-none');
+      showToast('🐾 Soft red panda paw poke sent to ' + name + '!');
+      
+      const feed = document.getElementById('activityFeedList');
+      const newEntry = document.createElement('div');
+      newEntry.className = 'p-space-sm rounded-xl bg-surface-container flex items-start gap-space-sm animate-fade-in';
+      newEntry.innerHTML = `
+        <div class="w-8 h-8 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-label-sm shrink-0">
+          AC
+        </div>
+        <div class="flex flex-col">
+          <p class="font-body-sm text-body-sm text-on-surface">
+            <strong>Alex (You)</strong> sent a red panda paw poke to <strong>${name}</strong>.
+          </p>
+          <span class="font-label-sm text-label-sm text-secondary font-semibold">Just now</span>
+        </div>
+      `;
+      feed.insertBefore(newEntry, feed.firstChild);
+    }
+
+    function sendCheer(name) {
+      showToast('🎋 Bamboo snack sent to ' + name + '!');
+      const feed = document.getElementById('activityFeedList');
+      const newEntry = document.createElement('div');
+      newEntry.className = 'p-space-sm rounded-xl bg-surface-container flex items-start gap-space-sm';
+      newEntry.innerHTML = `
+        <div class="w-8 h-8 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-label-sm shrink-0">
+          AC
+        </div>
+        <div class="flex flex-col">
+          <p class="font-body-sm text-body-sm text-on-surface">
+            <strong>Alex (You)</strong> shared a snack with <strong>${name}</strong>!
+          </p>
+          <span class="font-label-sm text-label-sm text-secondary font-semibold">Just now</span>
+        </div>
+      `;
+      feed.insertBefore(newEntry, feed.firstChild);
+    }
+
+    function postClanReaction(msg) {
+      showToast(msg);
+      const feed = document.getElementById('activityFeedList');
+      const newEntry = document.createElement('div');
+      newEntry.className = 'p-space-sm rounded-xl bg-surface-container flex items-start gap-space-sm';
+      newEntry.innerHTML = `
+        <div class="w-8 h-8 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-bold text-label-sm shrink-0">
+          AC
+        </div>
+        <div class="flex flex-col">
+          <p class="font-body-sm text-body-sm text-on-surface">
+            <strong>Alex (You)</strong>: ${msg}
+          </p>
+          <span class="font-label-sm text-label-sm text-outline">Just now</span>
+        </div>
+      `;
+      feed.insertBefore(newEntry, feed.firstChild);
+    }
+
+    function feedSharedPanda() {
+      showToast('🎋 Fed 10 leaves to the Clan Red Panda Sanctuary! (+100 XP)');
+    }
+
+    function openInviteModal() {
+      const modal = document.getElementById('inviteModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeInviteModal() {
+      const modal = document.getElementById('inviteModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  </script>
+</div></main></div></body></html>
