@@ -5,6 +5,7 @@ import { useAsync, type DayStat } from '../lib/hooks'
 import { must } from '../lib/query'
 import { supabase } from '../lib/supabase'
 
+const MONTH_GAP = 10 // keep in sync with `.smap { gap }` in style.css
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 interface MonthBlock {
@@ -74,11 +75,29 @@ export function StreakMap({ days }: { days: Map<string, DayStat> }) {
     return { minutes, active, maxStreak: longestRun(days, from, to) }
   }, [days, start, end])
 
-  // Start scrolled to today (right edge) on narrow screens.
+  // Pick the biggest square size (9 to 14px) that fits the card, so the map doesn't need
+  // a scrollbar on laptop widths. Narrower than that, it scrolls inside its own box.
+  const [cell, setCell] = useState(13)
+  useEffect(() => {
+    const el = scroller.current
+    if (!el) return
+    const fit = () => {
+      const cols = months.reduce((n, m) => n + m.cols.length, 0)
+      const fixed = (cols - months.length) * 3 + (months.length - 1) * MONTH_GAP
+      const size = Math.floor((el.clientWidth - fixed) / cols)
+      setCell(Math.max(9, Math.min(14, size)))
+    }
+    fit()
+    const ro = new ResizeObserver(fit)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [months])
+
+  // Start scrolled to today (right edge) when it does have to scroll.
   useEffect(() => {
     const el = scroller.current
     if (el) el.scrollLeft = el.scrollWidth
-  }, [months])
+  }, [months, cell])
 
   const label = range === 'current' ? 'the past year' : String(range)
 
@@ -102,10 +121,10 @@ export function StreakMap({ days }: { days: Map<string, DayStat> }) {
       </div>
 
       <div className="smap-scroll" ref={scroller}>
-        <div className="smap">
+        <div className="smap" style={{ ['--cell' as string]: `${cell}px` }}>
           {months.map((m) => (
             <div className="smap-month" key={m.key}>
-              <div className="smap-grid" style={{ gridTemplateColumns: `repeat(${m.cols.length}, 13px)` }}>
+              <div className="smap-grid" style={{ gridTemplateColumns: `repeat(${m.cols.length}, var(--cell, 13px))` }}>
                 {m.cols.flat().map((day, i) => {
                   if (!day) return <span key={i} className="cell blank" />
                   const s = days.get(day)

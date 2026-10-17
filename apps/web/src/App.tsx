@@ -7,11 +7,13 @@ import Badges from './pages/Badges'
 import Settings from './pages/Settings'
 import Join from './pages/Join'
 import DevPreview from './pages/DevPreview'
+import DevMascots from './pages/DevMascots'
 
 export default function App() {
   return (
     <Routes>
       {import.meta.env.DEV && <Route path="/dev" element={<DevPreview />} />}
+      {import.meta.env.DEV && <Route path="/dev/mascot" element={<DevMascots />} />}
       <Route path="/join/:code" element={<Join />} />
       <Route element={<Layout />}>
         <Route index element={<Home />} />

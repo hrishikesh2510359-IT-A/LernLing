@@ -90,7 +90,7 @@ export default function Home() {
         <div className="card">
           <div className="hero">
             <div className="center">
-              <Mascot stage={stage} mood={mood} />
+              <Mascot stage={stage} mood={mood} interactive />
               <div className="muted">{STAGE_NAMES[stage]}</div>
             </div>
             <div className="grow">
